@@ -1,0 +1,205 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    /* 主文本颜色 */
+    height: 100%;
+    /* 使body和html高度占满整个视口 */
+}
+
+a {
+    text-decoration: none;
+    /* 去掉所有超链接的下划线 */
+}
+
+.container {
+    display: flex;
+    min-height: calc(100vh - 60px);
+    /* 减去底栏的高度 */
+}
+
+.left-column {
+    width: 25%;
+    background-color: #add8e6;
+    /* 浅天蓝色 */
+    padding: 20px;
+    position: sticky;
+    /* 使左侧栏在页面滚动时固定 */
+    top: 0;
+    /* 固定在顶部 */
+    height: 100vh;
+    /* 使左侧栏占满整个视口的高度 */
+    box-sizing: border-box;
+    /* 包括padding在内的高度计算 */
+    display: flex;
+    flex-direction: column;
+    /* 使内容垂直排列 */
+    align-items: center;
+    /* 垂直居中 */
+    justify-content: center;
+    /* 水平居中 */
+}
+
+.avatar-frame {
+    width: 200px;
+    /* 头像框的宽度 */
+    height: 200px;
+    /* 头像框的高度 */
+    border-radius: 50%;
+    /* 圆形 */
+    background-color: #fff;
+    /* 背景颜色 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* 确保图片不会超出边界 */
+    margin-top: -200px;
+    /* 增加上边距 */
+    animation: rotate-avatar 10s linear infinite;
+    /* 应用动画 */
+}
+
+.avatar-frame img {
+    width: 100%;
+    /* 使图片填满头像框 */
+    height: auto;
+    /* 自动调整高度 */
+    border-radius: 50%;
+    /* 圆形 */
+    animation: rotate-avatar 10s linear infinite;
+    /* 应用动画 */
+}
+
+/* @keyframes rotate-avatar {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  } */
+.username {
+    margin-top: 50px;
+    /* 与头像框的间距 */
+    font-size: 1.5em;
+    /* 字体大小 */
+    font-weight: bold;
+    /* 字体加粗 */
+}
+
+.user-intro {
+    margin-top: 30px;
+    /* 与用户名的间距 */
+    font-size: 1em;
+    /* 字体大小 */
+    text-align: center;
+    /* 文本居中 */
+}
+
+.right-column {
+    width: 75%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    /* 使内容垂直排列 */
+}
+
+.right-column header {
+    background-color: #87CEEB;
+    /* 天蓝色 */
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    animation: color-change 5s infinite;
+    /* 应用动画 */
+}
+
+@keyframes color-change {
+    0% {
+        color: #0281ff;
+    }
+
+    /* 深天蓝色 */
+    25% {
+        color: #00a2ffe7;
+    }
+
+    50% {
+        color: #00a2ffcd;
+    }
+
+    /* 白色 */
+    75% {
+        color: #00a2ffe7;
+    }
+
+    100% {
+        color: #0281ff;
+    }
+
+    /* 深天蓝色 */
+}
+
+.section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* 部分之间的间距 */
+    padding: 10px;
+    background-color: #e6f7ff;
+    /* 浅蓝色背景 */
+    border-left: 5px solid #87CEEB;
+    /* 边框颜色 */
+}
+
+.section-title {
+    font-size: 1.2em;
+    /* 标题字体大小 */
+    color: #0281ff;
+    /* 标题颜色 */
+}
+
+.section-content {
+    font-size: 1em;
+    /* 内容字体大小 */
+}
+
+.tags-container {
+    display: flex;
+    /* 使标签平行排布 */
+    justify-content: space-between;
+    /* 标签之间的间距 */
+    margin-top: 10px;
+}
+
+.tag {
+    background-color: #f0f9ff;
+    /* 标签背景颜色 */
+    border: 1px solid #87CEEB;
+    /* 标签边框颜色 */
+    padding: 7px;
+    /* 标签内边距 */
+    border-radius: 5px;
+    /* 标签边框圆角 */
+    width: calc(33.333% - 10px);
+    /* 标签宽度 */
+    box-sizing: border-box;
+    /* 包括padding在内的宽度计算 */
+    text-align: center;
+}
+
+footer {
+    background-color: #87CEEB;
+    /* 天蓝色 */
+    color: white;
+    text-align: center;
+    padding: 0px 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    /* 包括padding在内的宽度计算 */
+    font-size: 10px;
+}

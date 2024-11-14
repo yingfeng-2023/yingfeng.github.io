@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文章列表</title>
+<link rel="stylesheet" href="readList.CSS">
+</head>
+<body>
+
+<div class="container">
+  <div class="left-column collapsed">
+    <div class= "avatar-frame" onclick="toggleMenu()">
+      <img src="header.jpg" alt="头像">
+    </div>
+    <div class="username">迎风</div>
+    <div class="user-intro">
+      一个普通的学生<br/>
+      编程小白<br/>
+    </div>
+    <button class="nav-button" onclick="location.href='index.html'">主</button>
+    <button class="nav-button" onclick="location.href='lifeReadList.html'">生</button>
+    <button class="nav-button" onclick="location.href='interestReadList.html'">兴</button>
+  </div>
+  <div class="right-column">
+    <header>
+        <form id="searchForm">
+          <input type="text" id="searchInput" placeholder="搜索学习相关的文章..." aria-label="搜索">
+          <button type="submit">搜索</button>
+        </form>
+    </header>
+    <!-- 文章选项开始 -->
+    <section id="section1" class="article-option">
+      <h2>不要点击了，这里暂时还没有学习有关的文章</h2>
+      <p>文章摘要：无内容</p>
+    </section>
+    <div class="pagination">
+        <button class="page-button" onclick="changePage('prev')">上一页</button>
+        <button class="page-button" onclick="changePage('next')">下一页</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <!-- <p>版权所有 &copy; 2024 我的网站</p> -->
+  <p>来都来了，不如到处点击看看</p>
+</footer>
+
+<script src="readList.JS"></script>
+
+</body>
+</html>

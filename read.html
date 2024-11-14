@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阅读文章页面</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #333; /* 主文本颜色 */
+    height: 100%; /* 使body和html高度占满整个视口 */
+  }
+  .container {
+    display: flex;
+    min-height: calc(100vh - 60px); /* 减去底栏的高度 */
+  }
+  .left-column {
+    width: 60px; /* 收缩后的宽度 */
+    background-color: #add8e6; /* 浅天蓝色 */
+    padding: 10px; /* 收缩后的padding */
+    position: sticky; /* 使左侧栏在页面滚动时固定 */
+    top: 0; /* 固定在顶部 */
+    height: 100vh; /* 使左侧栏占满整个视口的高度 */
+    box-sizing: border-box; /* 包括padding在内的高度计算 */
+    display: flex;
+    flex-direction: column; /* 使内容垂直排列 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    transition: width 0.3s, padding 0.3s; /* 平滑过渡效果 */
+  }
+  .left-column:not(.collapsed) {
+    width: 25%;
+    padding: 20px;
+  }
+  .nav-button {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: opacity 0.3s, transform 0.3s;
+    opacity: 0; /* 初始透明度为0 */
+    transform: translateY(-20px); /* 初始向上偏移 */
+    pointer-events: none; /* 防止点击 */
+  }
+  .left-column.collapsed .nav-button {
+    opacity: 1; /* 收缩时透明度为1 */
+    transform: translateY(0); /* 收缩时无偏移 */
+    pointer-events: auto; /* 允许点击 */
+  }
+  .avatar-frame {
+    width: 40px; /* 收缩后的头像框宽度 */
+    height: 40px; /* 收缩后的头像框高度 */
+    border-radius: 50%; /* 圆形 */
+    background-color: #fff; /* 背景颜色 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* 确保图片不会超出边界 */
+    margin-top: 0px; /* 收缩后的上边距 */
+    transition: width 0.3s, height 0.3s, margin-top 0.3s; /* 平滑过渡效果 */
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+  }
+  .left-column:not(.collapsed) .avatar-frame {
+    width: 200px; /* 展开后的头像框宽度 */
+    height: 200px; /* 展开后的头像框高度 */
+    margin-top: -100px; /* 展开后的上边距 */
+  }
+  .avatar-frame img {
+    width: 100%; /* 使图片填满头像框 */
+    height: auto; /* 自动调整高度 */
+    border-radius: 50%; /* 圆形 */
+    transition: width 0.3s, height 0.3s; /* 平滑过渡效果 */
+  }
+  .left-column:not(.collapsed) .avatar-frame img {
+    width: 100%; /* 展开后的图片宽度 */
+    height: auto; /* 展开后的图片高度 */
+  }
+  .username {
+    margin-top: 50px; /* 与头像框的间距 */
+    font-size: 1.5em; /* 字体大小 */
+    font-weight: bold; /* 字体加粗 */
+    opacity: 0; /* 初始隐藏 */
+    transition: opacity 0.3s, margin-top 0.3s; /* 平滑过渡效果 */
+  }
+  .left-column:not(.collapsed) .username,
+  .left-column:not(.collapsed) .user-intro {
+    opacity: 1; /* 展开后显示 */
+    margin-top: 30px;
+  }
+  .user-intro {
+    margin-top: 30px; /* 与用户名的间距 */
+    font-size: 1em; /* 字体大小 */
+    text-align: center; /* 文本居中 */
+    opacity: 0; /* 初始隐藏 */
+    transition: opacity 0.3s, margin-top 0.3s; /* 平滑过渡效果 */
+  }
+  .right-column {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* 使内容垂直排列 */
+  }
+  .right-column header {
+    background-color: #87CEEB; /* 天蓝色 */
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    animation: color-change 5s infinite; /* 应用动画 */
+  }
+  .article-title {
+    font-size: 2em; /* 文章标题字体大小 */
+    color: #0281ff; /* 文章标题颜色 */
+    margin-bottom: 20px; /* 文章标题与内容的间距 */
+  }
+  .article-content {
+    font-size: 1em; /* 文章内容字体大小 */
+    line-height: 1.6; /* 行高 */
+  }
+  footer {
+    background-color: #87CEEB; /* 天蓝色 */
+    color: white;
+    text-align: center;
+    padding: 0px 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box; /* 包括padding在内的宽度计算 */
+    font-size: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="left-column collapsed">
+    <div class="avatar-frame" onclick="toggleMenu()">
+      <img src="header.jpg" alt="头像">
+    </div>
+    <div class="username">用户名</div>
+    <div class="user-intro">个人简单介绍，可以包括职业、兴趣等信息。</div>
+    <button class="nav-button" onclick="scrollTo('section1')">&#8677;</button>
+    <button class="nav-button" onclick="scrollTo('section2')">&#8677;</button>
+    <button class="nav-button" onclick="scrollTo('section3')">&#8677;</button>
+  </div>
+  <div class="right-column">
+    <header>
+      <h1>阅读文章</h1>
+    </header>
+    <div class="article" id="section1">
+      <h2 class="article-title">文章标题</h2>
+      <div class="article-content">
+        <p>这里是文章的内容，可以包含多个段落。文章内容应该围绕一个主题展开，提供有价值的信息或者有趣的故事。</p>
+        <p>文章可以包含图片、引用、列表等多种形式的内容，以增强阅读体验。</p>
+      </div>
+    </div>
+    <div class="article" id="section2">
+      <h2 class="article-title">生活（记录生活中的形形色色）</h2>
+      <div class="article-content">
+        <p>这里是生活部分的内容。</p>
+      </div>
+    </div>
+    <div class="article" id="section3">
+      <h2 class="article-title">学习（一些学习足迹的记录）</h2>
+      <div class="article-content">
+        <p>这里是学习部分的内容。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>版权所有 &copy; 2024 我的网站</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const leftColumn = document.querySelector('.left-column');
+    leftColumn.classList.toggle('collapsed');
+  }
+  
+  function scrollTo(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
+
+</body>
+</html>

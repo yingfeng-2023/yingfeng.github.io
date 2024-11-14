@@ -1,0 +1,346 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: #333;
+  /* 主文本颜色 */
+  height: 100%;
+  /* 使body和html高度占满整个视口 */
+}
+
+.container {
+  display: flex;
+  min-height: calc(100vh - 60px);
+  /* 减去底栏的高度 */
+}
+
+.left-column {
+  width: 60px;
+  /* 收缩后的宽度 */
+  background-color: #add8e6;
+  /* 浅天蓝色 */
+  padding: 10px;
+  /* 收缩后的padding */
+  position: sticky;
+  /* 使左侧栏在页面滚动时固定 */
+  top: 0;
+  /* 固定在顶部 */
+  height: 100vh;
+  /* 使左侧栏占满整个视口的高度 */
+  box-sizing: border-box;
+  /* 包括padding在内的高度计算 */
+  display: flex;
+  flex-direction: column;
+  /* 使内容垂直排列 */
+  align-items: center;
+  /* 垂直居中 */
+  justify-content: center;
+  /* 水平居中 */
+  transition: width 0.3s, padding 0.3s;
+  /* 平滑过渡效果 */
+}
+
+.left-column:not(.collapsed) {
+  width: 25%;
+  padding: 20px;
+}
+
+.nav-button {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: 0;
+  /* 初始透明度为0 */
+  transform: translateY(-20px);
+  /* 初始向上偏移 */
+  pointer-events: none;
+  /* 防止点击 */
+}
+
+.left-column.collapsed .nav-button {
+  opacity: 1;
+  /* 收缩时透明度为1 */
+  transform: translateY(0);
+  /* 收缩时无偏移 */
+  pointer-events: auto;
+  /* 允许点击 */
+}
+
+.avatar-frame {
+  width: 40px;
+  /* 收缩后的头像框宽度 */
+  height: 40px;
+  /* 收缩后的头像框高度 */
+  border-radius: 50%;
+  /* 圆形 */
+  background-color: #fff;
+  /* 背景颜色 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* 确保图片不会超出边界 */
+  margin-top: 0px;
+  /* 收缩后的上边距 */
+  transition: width 0.3s, height 0.3s, margin-top 0.3s;
+  /* 平滑过渡效果 */
+  cursor: pointer;
+  /* 鼠标悬停时显示指针 */
+}
+
+.left-column:not(.collapsed) .avatar-frame {
+  width: 200px;
+  /* 展开后的头像框宽度 */
+  height: 200px;
+  /* 展开后的头像框高度 */
+  margin-top: -100px;
+  /* 展开后的上边距 */
+}
+
+.avatar-frame img {
+  width: 100%;
+  /* 使图片填满头像框 */
+  height: auto;
+  /* 自动调整高度 */
+  border-radius: 50%;
+  /* 圆形 */
+  transition: width 0.3s, height 0.3s;
+  /* 平滑过渡效果 */
+}
+
+.left-column:not(.collapsed) .avatar-frame img {
+  width: 100%;
+  /* 展开后的图片宽度 */
+  height: auto;
+  /* 展开后的图片高度 */
+}
+
+.username {
+  margin-top: 50px;
+  /* 与头像框的间距 */
+  font-size: 1.5em;
+  /* 字体大小 */
+  font-weight: bold;
+  /* 字体加粗 */
+  opacity: 0;
+  /* 初始隐藏 */
+  transition: opacity 0.3s, margin-top 0.3s;
+  /* 平滑过渡效果 */
+}
+
+.left-column:not(.collapsed) .username,
+.left-column:not(.collapsed) .user-intro {
+  opacity: 1;
+  /* 展开后显示 */
+  margin-top: 30px;
+}
+
+.user-intro {
+  margin-top: 30px;
+  /* 与用户名的间距 */
+  font-size: 1em;
+  /* 字体大小 */
+  text-align: center;
+  /* 文本居中 */
+  opacity: 0;
+  /* 初始隐藏 */
+  transition: opacity 0.3s, margin-top 0.3s;
+  /* 平滑过渡效果 */
+}
+
+.right-column {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  /* 使内容垂直排列 */
+  background-color: #f8f8f8;
+  /* 背景颜色 */
+}
+
+.right-column header {
+  background-color: #87CEEB;
+  /* 天蓝色 */
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  animation: color-change 5s infinite;
+  /* 应用动画 */
+}
+
+header {
+  background-color: #87CEEB;
+  /* 天蓝色背景 */
+  color: white;
+  height: 70px;
+  padding: 0px 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  /* 垂直居中 */
+  justify-content: center;
+  /* 水平居中 */
+}
+
+#searchForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 70%;
+  max-width: 600px;
+  /* 限制搜索框的最大宽度 */
+  margin: 0 auto;
+  /* 水平居中 */
+  background-color: #f8f8f8;
+  /* 搜索框背景颜色 */
+  border-radius: 5px;
+  /* 圆角边框 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* 阴影效果 */
+}
+
+#searchInput {
+  flex-grow: 1;
+  padding: 10px;
+  margin-right: 5px;
+  border: none;
+  /* 移除边框 */
+  border-radius: 0;
+  /* 移除圆角 */
+  outline: none;
+  /* 移除焦点时的轮廓 */
+  background-color: transparent;
+  /* 透明背景 */
+  color: #333;
+  /* 文本颜色 */
+  font-size: 25px;
+}
+
+#searchInput::placeholder {
+  color: #aaa;
+  /* 占位符文本颜色 */
+  font-size: 25px;
+}
+
+#searchForm button {
+  height: 100%;
+  width: 15%;
+  padding: 10px 15px;
+  border: none;
+  background-color: #add8e6;
+  /* 按钮背景颜色 */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+  /* 圆角边框 */
+  font-size: 20px;
+}
+
+#searchForm button:hover {
+  background-color: #6699cc;
+  /* 鼠标悬停时更深的蓝色 */
+}
+
+.article-option {
+  background-color: #fff;
+  /* 文章选项背景颜色 */
+  border: 1px solid #ddd;
+  /* 边框颜色和样式 */
+  border-radius: 8px;
+  /* 边框圆角 */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /* 文章选项之间的间距 */
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* 阴影效果 */
+  transition: transform 0.3s, box-shadow 0.3s;
+  /* 平滑过渡效果 */
+}
+
+.article-option:hover {
+  transform: translateY(-5px);
+  /* 鼠标悬停时上移 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* 鼠标悬停时阴影加深 */
+}
+
+.article-option h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.25em;
+  /* 文章标题字体大小 */
+}
+
+.article-option p {
+  color: #666;
+  font-size: 1em;
+  /* 文章摘要字体大小 */
+  line-height: 1.6;
+  /* 行高 */
+}
+
+footer {
+  background-color: #87CEEB;
+  /* 天蓝色 */
+  color: white;
+  text-align: center;
+  padding: 0px 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  /* 包括padding在内的宽度计算 */
+  font-size: 10px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.page-button {
+  padding: 10px 15px;
+  margin: 0 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #87CEEB;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.page-button:hover {
+  background-color: #4CAF50;
+}
+
+.page-button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.barrage {
+  position: fixed;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  background-color: rgba(1, 141, 255, 0.809);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  z-index: 1000;
+  pointer-events: none;
+  /* 弹幕不阻挡点击 */
+  white-space: nowrap;
+  /* 防止弹幕文本换行 */
+}
